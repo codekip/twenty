@@ -17,13 +17,13 @@ def get_dimensions(files):
     for file in files:
         print("FILENAME IS", file)
         pdf_file = PdfFileReader(open(file,"rb"))
-        page = pdf_file.getPage(0)
-        print("lower left",page.cropBox.getLowerLeft())
-        print("lower right",page.cropBox.getLowerRight())
-        print("upper left",page.cropBox.getUpperLeft())
-        print("upper right",page.cropBox.getUpperRight())
-        print("Mid point",page.cropBox.getUpperRight())
-        print(pdf_file.getDocumentInfo())
+        #page = pdf_file.getPage(0)
+        # print("lower left",page.cropBox.getLowerLeft())
+        # print("lower right",page.cropBox.getLowerRight())
+        # print("upper left",page.cropBox.getUpperLeft())
+        # print("upper right",page.cropBox.getUpperRight())
+        # print("Mid point",page.cropBox.getUpperRight())
+        #print(pdf_file.getDocumentInfo())
 
 
         crop(pdf_file, count)
