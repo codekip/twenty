@@ -1,21 +1,27 @@
-from PyPDF2 import PdfFileWriter,PdfFileReader,PdfFileMerger
 import glob
 import os
 
+from PyPDF2 import PdfFileMerger, PdfFileReader, PdfFileWriter
+
 PATH = r"L:\01 Site Tools\02 Operational Tools\62 DSV\**" + os.sep
 OUTPUT_PATH = r"L:\01 Site Tools\02 Operational Tools\62 DSV" + os.sep
-
 FILE_EXTENSION = "*.pdf"
 
 def get_files():
     files = glob.glob(PATH + FILE_EXTENSION,recursive=True)
-    #print(files)
+
     get_dimensions(files)
 
+    for file in files:
+        try:
+            os.remove(file)
+        except:
+            pass
+    
 def get_dimensions(files):
     count = 0
     for file in files:
-        print("FILENAME IS", file)
+        #print("FILENAME IS", file)
         pdf_file = PdfFileReader(open(file,"rb"))
         #page = pdf_file.getPage(0)
         # print("lower left",page.cropBox.getLowerLeft())
@@ -32,7 +38,7 @@ def get_dimensions(files):
 def crop(pdf, count):
     output = PdfFileWriter()
     pagecount = pdf.getNumPages()
-    print(f"The document has {pagecount} pages ")    
+    #print(f"The document has {pagecount} pages ")    
 
     for i in range(pagecount):
         page = pdf.getPage(i)
