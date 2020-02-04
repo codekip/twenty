@@ -11,14 +11,18 @@ IGNORE = ("resize")
 def get_files():
     all_files = glob.glob(PATH + FILE_EXTENSION,recursive=True)
     files = [file for file in all_files if not IGNORE in file]
-   
-    modify_file(files)
+    return files
+
+def run():
+    modify_files(get_files())
     
-def modify_file(files):
+def modify_files(files):
     count = 0
     for file in files:
-        pdf_file = PdfFileReader(open(file,"rb"))
+        input_file = open(file,"rb")
+        pdf_file = PdfFileReader(input_file)
         crop(pdf_file, count)
+        input_file.close()
         count += 1
 
 def crop(pdf, count):
@@ -37,7 +41,13 @@ def crop(pdf, count):
 
     with open(OUTPUT_PATH + str(count) + "_resized.pdf","wb") as out_file:
         output.write(out_file)
+    
+    out_file.close()
 
+def delete_files():
+    for file in get_files():
+        os.remove(file)
 
 if __name__ == "__main__":
-    get_files()
+    run()
+    delete_files()
